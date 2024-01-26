@@ -47,6 +47,7 @@
             tbFrom = new TextBox();
             tbContent = new TextBox();
             lblContent = new Label();
+            lblExeption = new Label();
             SuspendLayout();
             // 
             // btnRead
@@ -111,7 +112,6 @@
             tbUsername.Name = "tbUsername";
             tbUsername.Size = new Size(442, 47);
             tbUsername.TabIndex = 6;
-            tbUsername.Text = "senefishka";
             // 
             // lblPassword
             // 
@@ -126,9 +126,9 @@
             // 
             tbPassword.Location = new Point(311, 325);
             tbPassword.Name = "tbPassword";
+            tbPassword.PasswordChar = '*';
             tbPassword.Size = new Size(448, 47);
             tbPassword.TabIndex = 8;
-            tbPassword.Text = "Fishka1234";
             // 
             // tbSubject
             // 
@@ -215,11 +215,21 @@
             lblContent.TabIndex = 18;
             lblContent.Text = "Content:";
             // 
+            // lblExeption
+            // 
+            lblExeption.AutoSize = true;
+            lblExeption.ForeColor = Color.Red;
+            lblExeption.Location = new Point(88, 601);
+            lblExeption.Name = "lblExeption";
+            lblExeption.Size = new Size(0, 41);
+            lblExeption.TabIndex = 19;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(17F, 41F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(2261, 799);
+            Controls.Add(lblExeption);
             Controls.Add(lblContent);
             Controls.Add(tbContent);
             Controls.Add(tbFrom);
@@ -266,5 +276,6 @@
         private TextBox tbFrom;
         private TextBox tbContent;
         private Label lblContent;
+        private Label lblExeption;
     }
 }

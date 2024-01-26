@@ -48,20 +48,27 @@ namespace TestMailKit
         {
             using (var client = new ImapClient())
             {
-                client.Connect(EXT_IMAP_SERVER, EXT_IMAP_PORT, true);
-                client.Authenticate(EXT_USERNAME, EXT_PASSWORD);
-                                     
-                var inbox = client.Inbox;                
-                inbox.Open(FolderAccess.ReadWrite);
-                var trash = client.GetFolder(SpecialFolder.Trash);
-                var lastUnreadIndex = inbox.FirstUnread;
-                var lastMessage = client.Inbox.GetMessage(lastUnreadIndex);
+                try
+                {
+                    client.Connect(EXT_IMAP_SERVER, EXT_IMAP_PORT, true);
+                    client.Authenticate(EXT_USERNAME, EXT_PASSWORD);
 
-                await inbox.AddFlagsAsync(lastUnreadIndex, MessageFlags.Seen, true);
-                await inbox.MoveToAsync(lastUnreadIndex, trash);
-                FillMailData(lastMessage);
+                    var inbox = client.Inbox;
+                    inbox.Open(FolderAccess.ReadWrite);
+                    var trash = client.GetFolder(SpecialFolder.Trash);
+                    var lastUnreadIndex = inbox.FirstUnread;
+                    var lastMessage = client.Inbox.GetMessage(lastUnreadIndex);
 
-                client.Disconnect(true);
+                    await inbox.AddFlagsAsync(lastUnreadIndex, MessageFlags.Seen, true);
+                    await inbox.MoveToAsync(lastUnreadIndex, trash);
+                    FillMailData(lastMessage);
+
+                    client.Disconnect(true);
+                }
+                catch (Exception ex) 
+                {
+                    lblExeption.Text = ex.Message;
+                }
 
             }
         }
@@ -74,7 +81,7 @@ namespace TestMailKit
                 client.Authenticate(EXT_USERNAME, EXT_PASSWORD);
 
                 var inbox = client.Inbox;
-                inbox.Open(FolderAccess.ReadWrite);
+                await inbox.OpenAsync(FolderAccess.ReadWrite);
                 var lastUnreadIndex = inbox.FirstUnread;
                 var lastMessage = client.Inbox.GetMessage(lastUnreadIndex);
 
@@ -97,7 +104,8 @@ namespace TestMailKit
 
         private void ClearMailDate()
         {
-            tbFrom.Clear();
+            lblExeption.Text = null;
+            tbFrom.Text = null;//.Clear();
             tbSubject.Clear();
             tbDate.Clear();
             tbContent.Clear();
