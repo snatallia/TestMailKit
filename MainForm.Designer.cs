@@ -240,7 +240,7 @@
             Controls.Add(tbIMAPServer);
             Controls.Add(btnRead);
             Name = "MainForm";
-            Text = "Form2";
+            Text = "Test Mail Kit";
             ResumeLayout(false);
             PerformLayout();
         }
